@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SOEFR.Views.Transcriptions"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#262626">
+
+    <ListView ItemsSource="{Binding TranscriptionsHistory}"
+              BackgroundColor="#262626"
+              HasUnevenRows="True"
+              Margin="20"
+              SeparatorVisibility="None">
+        <ListView.Header>
+            <Grid RowDefinitions="auto, auto"
+                  ColumnDefinitions="auto">
+                <!-- TODO: Add the Source for your Image if you have a logo or icon -->
+                <Image Grid.Row="1"
+                       Grid.Column="0"
+                       Margin="0"
+                       WidthRequest="150"
+                       HeightRequest="40"
+                       HorizontalOptions="Start"/>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="0,20,0,0"
+                       Text="Transcriptions History"
+                       FontSize="32"
+                       FontFamily="Bold"
+                       TextColor="White"/>
+            </Grid>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid RowDefinitions="auto"
+                          ColumnDefinitions="auto, auto"
+                          Margin="0,20,0,0">
+                        <!-- Ensure your data model has these properties or adjust the bindings accordingly -->
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               FontSize="30"
+                               FontFamily="Bold"
+                               TextColor="White"
+                               Margin="0,0,0,10"
+                               Text="{Binding TranscriptionTitle}"/>
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Text="{Binding TranscriptionDate, StringFormat='{0:ddd, dd MMM yyyy}', TargetNullValue='not informed', FallbackValue='not informed'}"
+                               FontFamily="Medium"
+                               Margin="0,0,0,5"
+                               TextColor="White"/>
+                        <!-- Adjust the logic for playing the transcription as needed -->
+                        <Frame Grid.Row="2"
+                               Grid.Column="0"
+                               HorizontalOptions="Start"
+                               BackgroundColor="Transparent"
+                               Padding="6,10">
+                            <StackLayout Orientation="Horizontal">
+                                <Image Source="play"
+                                       WidthRequest="20"
+                                       HeightRequest="10"/>
+                                <Label Text="Play Transcription"
+                                       Margin="6,0,0,0"
+                                       FontFamily="Light"
+                                       FontSize="12"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       TextColor="White"/>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>
