@@ -15,6 +15,7 @@
         </x:Arguments>
     </NavigationPage>
     <NavigationPage Title="Transcriptions"
+                    IconColor="White"
                     IconImageSource="transcriptions">
         <x:Arguments>
             <local:Transcriptions/>

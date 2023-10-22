@@ -19,16 +19,11 @@ namespace SOEFR.ViewModels
 			set => SetProperty(ref _latestLaunch, value);
 		}
 
-		public Roadster RoadsterInfo
-		{
-			get => _roadsterInfo;
-			set => SetProperty(ref _roadsterInfo, value);
-		}
 
         private readonly HttpClient _client;
 		private Root _nextLaunch;
 		private Root _latestLaunch;
-		private Roadster _roadsterInfo;
+		
 
 		public HomePageViewModel()
 		{

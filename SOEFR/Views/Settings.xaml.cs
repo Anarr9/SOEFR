@@ -1,5 +1,5 @@
-﻿using SOEFR.ViewModels;
-using SOEFR.Models;
+﻿using Microsoft.Maui.Controls;
+using SOEFR.ViewModels;
 
 namespace SOEFR.Views
 {
@@ -8,6 +8,8 @@ namespace SOEFR.Views
         public Settings()
         {
             InitializeComponent();
+            BindingContext = new SettingsViewModel();
+            SettingsListView.ItemsSource = ((SettingsViewModel)BindingContext).Settings;
         }
     }
 }

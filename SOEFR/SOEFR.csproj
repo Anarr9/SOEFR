@@ -35,10 +35,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#262626" />
-
-		<!-- Splash Screen -->
-    <MauiSplashScreen Include="Resources\Splash\soefr1.svg" Color="#000033" BaseSize="128,128" />
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" />
+    <!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\soefr1.svg" Color="#000033" BaseSize="128,128" />
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiFont Include="Resources\Fonts\*" />
@@ -60,6 +59,7 @@
 	<ItemGroup>
 	  <None Remove="Models\" />
 	  <None Remove="Newtonsoft.Json" />
+	  <None Remove="Resources\AppIcon\appicon.svg" />
 	  <None Remove="Resources\Images\record.svg" />
 	  <None Remove="Resources\Images\transcriptions.svg" />
 	  <None Remove="Views\" />
