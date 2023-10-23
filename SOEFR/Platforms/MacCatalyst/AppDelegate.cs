@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace SpaceXhistory;
+namespace SOEFR;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

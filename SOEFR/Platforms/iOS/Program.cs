@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace SpaceXhistory;
+namespace SOEFR;
 
 public class Program
 {

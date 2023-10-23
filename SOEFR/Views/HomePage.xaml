@@ -5,32 +5,47 @@
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#262626">
     <ScrollView Orientation="Vertical">
-        <Grid
-            Margin="20">
-            <Label Grid.Row="1"
-                   Grid.Column="0"
-                   Margin="125,25,0,25"
-                   Text="Transcribe"
-                   FontSize="32"
-                   FontFamily="Bold"
-                   TextColor="Azure"
-                   />
-                     
-            <Button x:Name="RecordButton"
-                    WidthRequest="60"
-                    HeightRequest="60"
-                    BackgroundColor="Transparent"
-                    BorderColor="#7c4848"
-                    BorderWidth="2"
-                    CornerRadius="30"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="125,25,0,25"
+                Text="Transcribe"
+                FontSize="32"
+                FontFamily="Bold"
+                TextColor="Azure" />
+
+            <Button
+                x:Name="RecordButton"
+                Grid.Row="1"
+                WidthRequest="60"
+                HeightRequest="60"
+                BackgroundColor="Transparent"
+                BorderColor="#7c4848"
+                BorderWidth="2"
+                CornerRadius="30"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                
                 <Button.ImageSource>
-                    <FontImageSource Glyph="&#xf130;" 
-                                     FontFamily="Icons" 
-                                     Color= "#cd5c5c"/>
+                    <FontImageSource Glyph="&#xf130;" FontFamily="Icons" Color="#cd5c5c" />
                 </Button.ImageSource>
             </Button>
+
+            <Label
+                x:Name="ConnectionStatusLabel"
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="Connection Status"
+                VerticalOptions="CenterAndExpand" />
         </Grid>
     </ScrollView>
 </ContentPage>

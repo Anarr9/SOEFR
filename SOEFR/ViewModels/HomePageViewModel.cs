@@ -7,29 +7,22 @@ namespace SOEFR.ViewModels
 {
 	public class HomePageViewModel : BaseViewModel
 	{
-		public Root NextLaunch
-		{
-			get => _nextLaunch;
-			set => SetProperty(ref _nextLaunch, value);
-		}
 
-		public Root LatestLaunch
-		{
-			get => _latestLaunch;
-			set => SetProperty(ref _latestLaunch, value);
-		}
+        private string _connectionStatus = "Testing Connection Status";
+        public string ConnectionStatus
+        {
+            get => _connectionStatus;
+            set => SetProperty(ref _connectionStatus, value);
+        }
 
+        // ... existing code ...
 
-        private readonly HttpClient _client;
-		private Root _nextLaunch;
-		private Root _latestLaunch;
-		
-
-		public HomePageViewModel()
-		{
-			_client = new HttpClient();
-		}
-
+        public void UpdateConnectionStatus(string status)
+        {
+            ConnectionStatus = status;
+        }
     }
+
 }
+
 

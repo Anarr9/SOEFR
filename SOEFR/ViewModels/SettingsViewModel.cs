@@ -4,12 +4,17 @@ using SOEFR.Helpers;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using System.Windows.Input;
+using Plugin.BLE;
+using Plugin.BLE.Abstractions.Contracts;
 
 namespace SOEFR.ViewModels
 {
     public class SettingsViewModel
     {
         public ObservableCollection<SettingItem> Settings { get; set; }
+
+        private IAdapter Adapter => CrossBluetoothLE.Current.Adapter;
+        private IDevice Device;
 
         public SettingsViewModel()
         {
@@ -20,14 +25,32 @@ namespace SOEFR.ViewModels
             };
         }
 
-        private void OnConnect()
+        private async void OnConnect()
         {
-            // Connect logic
+            var ble = CrossBluetoothLE.Current;
+            Adapter.DeviceDiscovered += (s, a) =>
+            {
+                if (a.Device.Name == "Your_ESP32_Device_Name")
+                {
+                    Device = a.Device;
+                    Adapter.StopScanningForDevicesAsync();
+                }
+            };
+            await Adapter.StartScanningForDevicesAsync();
+
+            if (Device != null)
+            {
+                await Adapter.ConnectToDeviceAsync(Device);
+            }
         }
 
-        private void OnDisconnect()
+        private async void OnDisconnect()
         {
-            // Disconnect logic
+            if (Device != null)
+            {
+                await Adapter.DisconnectDeviceAsync(Device);
+                Device = null;
+            }
         }
     }
 

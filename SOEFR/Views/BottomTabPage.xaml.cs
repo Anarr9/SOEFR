@@ -5,5 +5,7 @@ public partial class BottomTabPage
 	public BottomTabPage()
 	{
 		InitializeComponent();
-	}
+      
+    }
+
 }
