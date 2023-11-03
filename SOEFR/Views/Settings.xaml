@@ -3,36 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SOEFR.Views.Settings"
              NavigationPage.HasNavigationBar="False"
-             BackgroundColor="#262626">
+             BackgroundColor="#262626"
+             x:DataType="vm: SettingsViewModel">
+    <!-- Assuming the ViewModel is in the namespace 'SOEFR.ViewModels' -->
 
-    <ListView x:Name="SettingsListView"
-              SeparatorVisibility="None">
-
-        <ListView.Header>
-            <Label Text="Bluetooth Settings"
-                   FontSize="24"
-                   TextColor="White"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center" />
-        </ListView.Header>
-
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout Padding="10" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Button Text="{Binding Title}"
-                                FontSize="20"
-                                WidthRequest="200"
-                                BackgroundColor="{Binding Color}"
-                                TextColor="White"
-                                BorderWidth="2"
-                                BorderColor="{Binding BorderColor}"
-                                CornerRadius="8"
-                                Command="{Binding Command}" />
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-
-    </ListView>
+    <VerticalStackLayout Spacing="25" Padding="30" VerticalOptions="Center">
+        <Label Text="{Binding StatusMessage}" FontSize="Medium" />
+        <Button Text="Scan for Devices" Command="{Binding ScanCommand}" />
+    </VerticalStackLayout>
 </ContentPage>

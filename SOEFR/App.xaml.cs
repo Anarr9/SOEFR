@@ -20,12 +20,12 @@ public partial class App : Application
 
     protected override void OnSleep()
     {
-        // Handle when your app sleeps
+        // App sleeps
     }
 
     protected override void OnResume()
     {
-        // Handle when your app resumes
+        // App resumes
     }
 }
 

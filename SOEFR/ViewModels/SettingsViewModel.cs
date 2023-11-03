@@ -1,64 +1,103 @@
-﻿using System;
-using SOEFR.Models;
-using SOEFR.Helpers;
-using System.Collections.ObjectModel;
-using Newtonsoft.Json;
+﻿using Shiny.BluetoothLE;
+using Shiny;
+using Shiny.Hosting;
+using System;
+using System.Linq;
 using System.Windows.Input;
-using Plugin.BLE;
-using Plugin.BLE.Abstractions.Contracts;
+using Microsoft.Maui.Controls;
 
 namespace SOEFR.ViewModels
 {
-    public class SettingsViewModel
+    public class SettingsViewModel : BindableObject
     {
-        public ObservableCollection<SettingItem> Settings { get; set; }
-
-        private IAdapter Adapter => CrossBluetoothLE.Current.Adapter;
-        private IDevice Device;
+        private IBleManager _bleManager;
+        private string _statusMessage;
 
         public SettingsViewModel()
         {
-            Settings = new ObservableCollection<SettingItem>
-            {
-                new SettingItem { Title = "Connect", Color = "#4CAF50", BorderColor = "#388E3C", Command = new Command(OnConnect) },
-                new SettingItem { Title = "Disconnect", Color = "#F44336", BorderColor = "#D32F2F", Command = new Command(OnDisconnect) }
-            };
+            _bleManager = ShinyHost.Resolve<IBleManager>();
+            ScanCommand = new Command(ScanForDevices);
         }
 
-        private async void OnConnect()
+        public string StatusMessage
         {
-            var ble = CrossBluetoothLE.Current;
-            Adapter.DeviceDiscovered += (s, a) =>
+            get => _statusMessage;
+            set
             {
-                if (a.Device.Name == "Your_ESP32_Device_Name")
+                if (_statusMessage != value)
                 {
-                    Device = a.Device;
-                    Adapter.StopScanningForDevicesAsync();
+                    _statusMessage = value;
+                    OnPropertyChanged();
                 }
-            };
-            await Adapter.StartScanningForDevicesAsync();
-
-            if (Device != null)
-            {
-                await Adapter.ConnectToDeviceAsync(Device);
             }
         }
 
-        private async void OnDisconnect()
+        public ICommand ScanCommand { get; }
+
+        private async void ScanForDevices()
         {
-            if (Device != null)
+            if (_bleManager.Status == AccessState.Available)
             {
-                await Adapter.DisconnectDeviceAsync(Device);
-                Device = null;
+                StatusMessage = "Scanning for ESP32 devices...";
+
+                var scanner = _bleManager.Scan().Subscribe(scanResult =>
+                {
+                    // Device found logic
+                    if (scanResult.Device.Name == "ESP32")
+                    {
+                        scanner.Dispose(); // Stop scanning
+                        StatusMessage = "ESP32 device found, connecting...";
+                        ConnectToDevice(scanResult.Device);
+                    }
+                });
+            }
+            else
+            {
+                StatusMessage = "Bluetooth not available.";
             }
         }
-    }
 
-    public class SettingItem
-    {
-        public string Title { get; set; }
-        public string Color { get; set; }
-        public string BorderColor { get; set; }
-        public ICommand Command { get; set; }
+        private async void ConnectToDevice(IPeripheral peripheral)
+        {
+            try
+            {
+                await peripheral.ConnectAsync();
+                StatusMessage = "Connected to ESP32.";
+
+                var services = await peripheral.GetServicesAsync();
+                var targetService = services.FirstOrDefault(s => s.Uuid == Guid.Parse("8e27f831-c8e2-4c0b-96e2-8e4ebc451a9b"));
+
+                if (targetService != null)
+                {
+                    var characteristics = await targetService.GetCharacteristicsAsync();
+                    var targetCharacteristic = characteristics.FirstOrDefault(c => c.Uuid == Guid.Parse("9172d2e8-a023-4e0f-a7c4-0978a7b084fe"));
+
+                    if (targetCharacteristic != null)
+                    {
+                        // Subscribe to characteristic
+                        targetCharacteristic.WhenNotificationReceived().Subscribe(result =>
+                        {
+                            // Handle the notification data
+                            var data = result.Data;
+                            StatusMessage = "Data received from ESP32.";
+                            // You could also update another property that the UI can bind to, to display the data
+                        });
+
+                        // Enable notifications
+                        await targetCharacteristic.EnableNotifications(true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Error connecting to device: {ex.Message}";
+            }
+        }
+
+        // Implement OnPropertyChanged if not already present in the class
+        protected override void OnPropertyChanged(string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+        }
     }
 }

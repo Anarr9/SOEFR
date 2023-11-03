@@ -22,7 +22,7 @@
         </x:Arguments>
     </NavigationPage>
     <NavigationPage Title="Settings"
-                    IconImageSource="cap">
+                    IconImageSource="settings">
         <x:Arguments>
             <local:Settings/>
         </x:Arguments>

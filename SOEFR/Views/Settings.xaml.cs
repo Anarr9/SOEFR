@@ -9,7 +9,6 @@ namespace SOEFR.Views
         {
             InitializeComponent();
             BindingContext = new SettingsViewModel();
-            SettingsListView.ItemsSource = ((SettingsViewModel)BindingContext).Settings;
         }
     }
 }

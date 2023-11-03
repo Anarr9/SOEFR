@@ -15,7 +15,6 @@ namespace SOEFR
 
         public string ConnectionStatus { get; private set; } = "Disconnected";
 
-
         public async Task Connect()
         {
             Uri serverUri = new Uri("wss://transcript.mazo.dev:2096");
@@ -42,37 +41,23 @@ namespace SOEFR
 
                     while (clientWebSocket.State == WebSocketState.Open)
                     {
-                        string message = "Your message";  // Replace with your message or logic to get a message
+                        string message = "SOEFR";  // Replace with your message or logic to get a message
                         byte[] messageBytes = Encoding.UTF8.GetBytes(message);
                         ArraySegment<byte> buffer = new ArraySegment<byte>(messageBytes);
 
-                        if (message.ToLower() == "exit")
+                        // Sends message to server
+                        await clientWebSocket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                        ArraySegment<byte> receiveBuffer = new ArraySegment<byte>(new byte[1024]);
+                        var receiveTime = DateTime.Now;
+                        WebSocketReceiveResult result = await clientWebSocket.ReceiveAsync(receiveBuffer, CancellationToken.None);
+                        if (result.MessageType == WebSocketMessageType.Text)
                         {
-                            await clientWebSocket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
-                            ArraySegment<byte> receiveBuffer = new ArraySegment<byte>(new byte[1024]);
-                            var receiveTime = DateTime.Now;
-                            WebSocketReceiveResult result = await clientWebSocket.ReceiveAsync(receiveBuffer, CancellationToken.None);
-                            if (result.MessageType == WebSocketMessageType.Text)
-                            {
-                                string response = Encoding.UTF8.GetString(receiveBuffer.Array, 0, result.Count);
-                                Debug.WriteLine($"Server says: {response}");
-                                DisplayLatency(result, receiveTime);
-                            }
-                            break;
+                            string response = Encoding.UTF8.GetString(receiveBuffer.Array, 0, result.Count);
+                            Debug.WriteLine($"Server says: {response}");
+                            DisplayLatency(result, receiveTime);
                         }
-                        else
-                        {
-                            await clientWebSocket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
-                            ArraySegment<byte> receiveBuffer = new ArraySegment<byte>(new byte[1024]);
-                            var receiveTime = DateTime.Now;
-                            WebSocketReceiveResult result = await clientWebSocket.ReceiveAsync(receiveBuffer, CancellationToken.None);
-                            if (result.MessageType == WebSocketMessageType.Text)
-                            {
-                                string response = Encoding.UTF8.GetString(receiveBuffer.Array, 0, result.Count);
-                                Debug.WriteLine($"Server says: {response}");
-                                DisplayLatency(result, receiveTime);
-                            }
-                        }
+
+                        await Task.Delay(30000);  // Delay for 30 seconds
                     }
 
                     await clientWebSocket.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
