@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
+using Shiny.Beacons;
 
 namespace SOEFR.ViewModels
 {
