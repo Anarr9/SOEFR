@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Plugin.Maui.Audio;
+using SOEFR.Views;
 
 namespace SOEFR;
 
@@ -22,6 +24,9 @@ public static class MauiProgram
                 fonts.AddFont("GemunuLibre-SemiBold.ttf", "SemiBold");
                 fonts.AddFont("fontello.ttf", "Icons");
             });
+		builder.Services.AddSingleton(AudioManager.Current);
+		builder.Services.AddTransient<HomePage>();
+
 
 #if DEBUG
 		builder.Logging.AddDebug();

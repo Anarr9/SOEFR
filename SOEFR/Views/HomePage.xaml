@@ -8,12 +8,21 @@
         <Grid Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <!-- Label -->
+                <RowDefinition Height="Auto" />
+                <!-- Record Button -->
+                <RowDefinition Height="Auto" />
+                <!-- Space between buttons -->
+                <RowDefinition Height="Auto" />
+                <!-- Play Button -->
                 <RowDefinition Height="*" />
+                <!-- Additional content or space -->
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!-- Transcribe Label -->
             <Label
                 Grid.Row="0"
                 Grid.Column="0"
@@ -23,10 +32,11 @@
                 FontFamily="Bold"
                 TextColor="Azure" />
 
+            <!-- Record Button -->
             <Button
                 x:Name="RecordButton"
                 Grid.Row="1"
-                WidthRequest="60"
+                WidthRequest="120"
                 HeightRequest="60"
                 BackgroundColor="Transparent"
                 BorderColor="#7c4848"
@@ -35,15 +45,15 @@
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 Clicked="OnRecordButtonClicked">
-
                 <Button.ImageSource>
                     <FontImageSource Glyph="&#xf130;" FontFamily="Icons" Color="#cd5c5c" />
                 </Button.ImageSource>
             </Button>
 
+            <!-- Play Button -->
             <Button
                 x:Name="PlayButton"
-                Grid.Row="1"
+                Grid.Row="3" 
                 WidthRequest="60"
                 HeightRequest="60"
                 BackgroundColor="Transparent"
@@ -52,8 +62,18 @@
                 CornerRadius="30"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
-                Text="Play"
-                Clicked="OnPlayButtonClicked" />
+                Clicked="OnPlayButtonClicked">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="&#xf144;" FontFamily="Icons" Color="#cd5c5c" />
+                </Button.ImageSource>
+            </Button>
+
+            <!-- Space between buttons -->
+            <BoxView
+                Grid.Row="2"
+                HeightRequest="20"
+                BackgroundColor="Transparent"/>
+
         </Grid>
     </ScrollView>
 </ContentPage>

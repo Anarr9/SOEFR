@@ -1,28 +1,33 @@
 ﻿using System;
-using Newtonsoft.Json;
-using SOEFR.Helpers;
-using SOEFR.Models;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Microsoft.Maui.Controls;
 
 namespace SOEFR.ViewModels
 {
-	public class HomePageViewModel : BaseViewModel
-	{
+    public class HomePageViewModel : BindableObject
+    {
+        public ICommand RecordAudioCommand { get; }
+        public ICommand PlayAudioCommand { get; }
 
-        private string _connectionStatus = "Testing Connection Status";
-        public string ConnectionStatus
+        public HomePageViewModel()
         {
-            get => _connectionStatus;
-            set => SetProperty(ref _connectionStatus, value);
+            RecordAudioCommand = new Command(async () => await RecordAudio());
+            PlayAudioCommand = new Command(async () => await PlayAudio());
         }
 
-        // ... existing code ...
-
-        public void UpdateConnectionStatus(string status)
+        private Task RecordAudio()
         {
-            ConnectionStatus = status;
+            // You would add your recording logic here.
+            // This will likely involve platform-specific services to handle the recording.
+            throw new NotImplementedException();
+        }
+
+        private Task PlayAudio()
+        {
+            // You would add your playback logic here.
+            // As with recording, this will likely involve platform-specific services.
+            throw new NotImplementedException();
         }
     }
-
 }
-
-
