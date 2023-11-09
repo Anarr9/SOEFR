@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Plugin.Maui.Audio;
 using SOEFR.Views;
+using Shiny;
 
 namespace SOEFR;
 
@@ -13,7 +14,8 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
-			.ConfigureFonts(fonts =>
+            .UseShiny()
+            .ConfigureFonts(fonts =>
 			{
                 fonts.AddFont("GemunuLibre-Bold.ttf", "Bold");
                 fonts.AddFont("GemunuLibre-ExtraBold.ttf", "ExtraBold");
