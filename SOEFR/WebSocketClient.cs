@@ -17,7 +17,7 @@ namespace SOEFR
 
         public async Task Connect()
         {
-            Uri serverUri = new Uri("wss://transcript.mazo.dev:2096");
+            Uri serverUri = new Uri("wss://soefr.com:2096");
 
             using (ClientWebSocket clientWebSocket = new ClientWebSocket())
             {

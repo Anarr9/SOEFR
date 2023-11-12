@@ -41,9 +41,6 @@
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiFont Include="Resources\Fonts\*" />
-
-		<MauiImage Update="Resources\Images\base.svg" BaseSize="30,30" />
-		<MauiImage Update="Resources\Images\cap.svg" BaseSize="24,24" />
 		<MauiImage Update="Resources\Images\ship.svg" BaseSize="30,30" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
@@ -83,9 +80,6 @@
 	  <None Remove="Resources\Fonts\GemunuLibre-Medium.ttf" />
 	  <None Remove="Resources\Fonts\GemunuLibre-Regular.ttf" />
 	  <None Remove="Resources\Fonts\GemunuLibre-SemiBold.ttf" />
-	  <None Remove="Resources\Images\logo.png" />
-	  <None Remove="Resources\Images\base.svg" />
-	  <None Remove="Resources\Images\cap.svg" />
 	  <None Remove="Resources\Images\ship.svg" />
 	  <None Remove="Resources\Images\wiki.svg" />
 	  <None Remove="Resources\Images\youtube.svg" />

@@ -14,7 +14,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
-            .UseShiny()
+            //.UseShiny()
             .ConfigureFonts(fonts =>
 			{
                 fonts.AddFont("GemunuLibre-Bold.ttf", "Bold");
