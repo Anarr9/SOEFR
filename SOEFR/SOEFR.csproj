@@ -66,6 +66,7 @@
 	  <None Remove="Models\" />
 	  <None Remove="Newtonsoft.Json" />
 	  <None Remove="Resources\AppIcon\appicon.svg" />
+	  <None Remove="Resources\Fonts\playsolid.svg" />
 	  <None Remove="Resources\Images\record.svg" />
 	  <None Remove="Resources\Images\settings.svg" />
 	  <None Remove="Resources\Images\transcriptions.svg" />

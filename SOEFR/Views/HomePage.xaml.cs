@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using Plugin.Maui.Audio;
 using Microsoft.Maui.Controls;
+
 
 namespace SOEFR.Views
 {
@@ -9,12 +11,11 @@ namespace SOEFR.Views
         private readonly IAudioManager _audioManager;
         private readonly IAudioRecorder _audioRecorder;
         private IAudioPlayer _audioPlayer;
+        private string _lastRecordedFilePath;
 
         public HomePage()
         {
             InitializeComponent();
-
-            // Make sure to register IAudioManager via dependency injection
             _audioManager = AudioManager.Current;
             _audioRecorder = _audioManager.CreateRecorder();
         }
@@ -23,25 +24,37 @@ namespace SOEFR.Views
         {
             if (await Permissions.RequestAsync<Permissions.Microphone>() != PermissionStatus.Granted)
             {
-                // Inform your user that the microphone permission is required.
                 await DisplayAlert("Permission Required", "Microphone permission is required to record audio.", "OK");
                 return;
             }
 
             if (!_audioRecorder.IsRecording)
             {
-                // Update UI to reflect recording state if necessary, e.g., change button text
-                RecordButton.Text = "Stop";
+                RecordButton.BackgroundColor = Color.FromHex("#cd5c5c");
+                ((FontImageSource)RecordButton.ImageSource).Glyph = "&#xf28d;"; 
                 await _audioRecorder.StartAsync();
             }
             else
             {
-                // Update UI to reflect not recording state if necessary, e.g., change button text
-                RecordButton.Text = "Record";
+                RecordButton.BackgroundColor = Color.FromHex("#34568B");
+                ((FontImageSource)RecordButton.ImageSource).Glyph = "&#xf04b;"; // Record icon glyph, replace as needed
                 var recordedAudio = await _audioRecorder.StopAsync();
 
-                // Keep a reference to the player if you need to control playback later
-                _audioPlayer = _audioManager.CreatePlayer(recordedAudio.GetAudioStream());
+                // Generate a unique file name
+                var fileName = $"recording_{DateTime.Now:yyyyMMddHHmmss}.wav";
+                _lastRecordedFilePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+
+                // Save the recorded audio to a file
+                using (var fileStream = new FileStream(_lastRecordedFilePath, FileMode.Create, FileAccess.Write))
+                {
+                    await recordedAudio.GetAudioStream().CopyToAsync(fileStream);
+                }
+
+                // Assuming you have a method to get a stream from the saved file
+                using (var audioStream = new FileStream(_lastRecordedFilePath, FileMode.Open, FileAccess.Read))
+                {
+                    _audioPlayer = _audioManager.CreatePlayer(audioStream);
+                }
             }
         }
 

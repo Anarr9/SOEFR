@@ -3,77 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SOEFR.Views.HomePage"
              NavigationPage.HasNavigationBar="False"
-             BackgroundColor="#262626">
-    <ScrollView Orientation="Vertical">
-        <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <!-- Label -->
-                <RowDefinition Height="Auto" />
-                <!-- Record Button -->
-                <RowDefinition Height="Auto" />
-                <!-- Space between buttons -->
-                <RowDefinition Height="Auto" />
-                <!-- Play Button -->
-                <RowDefinition Height="*" />
-                <!-- Additional content or space -->
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+             BackgroundColor="#1F1F1F">
+    <ScrollView>
+        <VerticalStackLayout 
+            Spacing="25"
+            Padding="30"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="FillAndExpand">
 
             <!-- Transcribe Label -->
-            <Label
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="125,25,0,25"
-                Text="Transcribe"
-                FontSize="32"
-                FontFamily="Bold"
-                TextColor="Azure" />
+            <Label Text="Transcribe"
+                   FontSize="36"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center" />
 
             <!-- Record Button -->
-            <Button
-                x:Name="RecordButton"
-                Grid.Row="1"
-                WidthRequest="120"
-                HeightRequest="60"
-                BackgroundColor="Transparent"
-                BorderColor="#7c4848"
-                BorderWidth="2"
-                CornerRadius="30"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Clicked="OnRecordButtonClicked">
+            <Button x:Name="RecordButton"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    BackgroundColor="#34568B"
+                    CornerRadius="50"
+                    HorizontalOptions="Center"
+                    Clicked="OnRecordButtonClicked">
                 <Button.ImageSource>
                     <FontImageSource Glyph="&#xf130;" FontFamily="Icons" Color="#cd5c5c" />
                 </Button.ImageSource>
             </Button>
 
             <!-- Play Button -->
-            <Button
-                x:Name="PlayButton"
-                Grid.Row="3" 
-                WidthRequest="60"
-                HeightRequest="60"
-                BackgroundColor="Transparent"
-                BorderColor="#7c4848"
-                BorderWidth="2"
-                CornerRadius="30"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Clicked="OnPlayButtonClicked">
+            <Button x:Name="PlayButton"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    BackgroundColor="#6B8E23"
+                    CornerRadius="50"
+                    HorizontalOptions="Center"
+                    Clicked="OnPlayButtonClicked">
                 <Button.ImageSource>
-                    <FontImageSource Glyph="&#xf144;" FontFamily="Icons" Color="#cd5c5c" />
+                    <FontImageSource Glyph="&#xf130;" FontFamily="Icons" Color="White" />
                 </Button.ImageSource>
             </Button>
-
-            <!-- Space between buttons -->
-            <BoxView
-                Grid.Row="2"
-                HeightRequest="20"
-                BackgroundColor="Transparent"/>
-
-        </Grid>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
