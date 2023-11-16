@@ -22,7 +22,9 @@
             <Button x:Name="RecordButton"
                     WidthRequest="100"
                     HeightRequest="100"
-                    BackgroundColor="#34568B"
+                    BackgroundColor="Transparent"
+                    BorderColor="#7c4848"
+                    BorderWidth="4"
                     CornerRadius="50"
                     HorizontalOptions="Center"
                     Clicked="OnRecordButtonClicked">
@@ -35,12 +37,14 @@
             <Button x:Name="PlayButton"
                     WidthRequest="100"
                     HeightRequest="100"
-                    BackgroundColor="#6B8E23"
+                    BackgroundColor="Transparent"
+                    BorderColor="#4CAF50"
+                    BorderWidth="4"
                     CornerRadius="50"
                     HorizontalOptions="Center"
                     Clicked="OnPlayButtonClicked">
                 <Button.ImageSource>
-                    <FontImageSource Glyph="&#xf130;" FontFamily="Icons" Color="White" />
+                    <FontImageSource Glyph="&#xe800;" FontFamily="Play" Color="DarkSeaGreen" />
                 </Button.ImageSource>
             </Button>
         </VerticalStackLayout>

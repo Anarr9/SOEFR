@@ -31,13 +31,13 @@ namespace SOEFR.Views
             if (!_audioRecorder.IsRecording)
             {
                 RecordButton.BackgroundColor = Color.FromHex("#cd5c5c");
-                ((FontImageSource)RecordButton.ImageSource).Glyph = "&#xf28d;"; 
+                ((FontImageSource)RecordButton.ImageSource).Glyph = "\uf28d"; 
                 await _audioRecorder.StartAsync();
             }
             else
             {
                 RecordButton.BackgroundColor = Color.FromHex("#34568B");
-                ((FontImageSource)RecordButton.ImageSource).Glyph = "&#xf04b;"; // Record icon glyph, replace as needed
+                ((FontImageSource)RecordButton.ImageSource).Glyph = "\uf04b"; // Record icon glyph, replace as needed
                 var recordedAudio = await _audioRecorder.StopAsync();
 
                 // Generate a unique file name

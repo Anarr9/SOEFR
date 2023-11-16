@@ -26,7 +26,7 @@ public static class MauiProgram
                 fonts.AddFont("GemunuLibre-SemiBold.ttf", "SemiBold");
                 fonts.AddFont("fontello.ttf", "Icons");
 
-                fonts.AddFont("playsolid.svg", "FontAwesomeSolid");
+                fonts.AddFont("play.ttf", "Play");
 
             });
 		builder.Services.AddSingleton(AudioManager.Current);
