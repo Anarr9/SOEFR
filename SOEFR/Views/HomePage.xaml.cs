@@ -2,6 +2,8 @@
 using System.IO;
 using Plugin.Maui.Audio;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
+using System.Diagnostics;
 
 
 namespace SOEFR.Views
@@ -12,12 +14,15 @@ namespace SOEFR.Views
         private readonly IAudioRecorder _audioRecorder;
         private IAudioPlayer _audioPlayer;
         private string _lastRecordedFilePath;
+        private bool _isConnected; // Variable to hold connection status
+        private WebSocketClient _websocketClient;
 
         public HomePage()
         {
             InitializeComponent();
             _audioManager = AudioManager.Current;
             _audioRecorder = _audioManager.CreateRecorder();
+            _websocketClient = new WebSocketClient(); // Initialize the WebSocketClient
         }
 
         private async void OnRecordButtonClicked(object sender, EventArgs e)
@@ -31,7 +36,7 @@ namespace SOEFR.Views
             if (!_audioRecorder.IsRecording)
             {
                 RecordButton.BackgroundColor = Color.FromHex("#cd5c5c");
-                ((FontImageSource)RecordButton.ImageSource).Glyph = "\uf28d"; 
+                ((FontImageSource)RecordButton.ImageSource).Glyph = "\uf28d";
                 await _audioRecorder.StartAsync();
             }
             else
@@ -43,8 +48,11 @@ namespace SOEFR.Views
                 // Generate a unique file name
                 var fileName = $"recording_{DateTime.Now:yyyyMMddHHmmss}.wav";
                 _lastRecordedFilePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+                Debug.WriteLine(_lastRecordedFilePath); // This will show where the files are being saved
 
                 // Save the recorded audio to a file
+                await Permissions.RequestAsync<Permissions.StorageWrite>();
+
                 using (var fileStream = new FileStream(_lastRecordedFilePath, FileMode.Create, FileAccess.Write))
                 {
                     await recordedAudio.GetAudioStream().CopyToAsync(fileStream);
@@ -62,5 +70,26 @@ namespace SOEFR.Views
         {
             _audioPlayer?.Play();
         }
+
+        private async void OnConnectButtonClicked(object sender, EventArgs e)
+        {
+            if (!_isConnected)
+            {
+                ConnectButton.Text = "Disconnect";
+                ConnectButton.BackgroundColor = Colors.Red;
+                _isConnected = true;
+                // Code to utilize WebsocketClient and connect
+                await _websocketClient.Connect();
+            }
+            else
+            {
+                ConnectButton.Text = "Connect";
+                ConnectButton.BackgroundColor = Colors.Transparent;
+                _isConnected = false;
+                // Code to disconnect
+                await _websocketClient.Disconnect();
+            }
+        }
+
     }
 }

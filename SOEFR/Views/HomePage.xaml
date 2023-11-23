@@ -47,6 +47,18 @@
                     <FontImageSource Glyph="&#xe800;" FontFamily="Play" Color="DarkSeaGreen" />
                 </Button.ImageSource>
             </Button>
+
+            <Button x:Name="ConnectButton"
+                    Text="Connect"
+                    WidthRequest="200"
+                    HeightRequest="60"
+                    BackgroundColor="Transparent"
+                    BorderColor="Gray"
+                    BorderWidth="2"
+                    CornerRadius="30"
+                    TextColor="White"
+                    HorizontalOptions="Center"
+                    Clicked="OnConnectButtonClicked" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
