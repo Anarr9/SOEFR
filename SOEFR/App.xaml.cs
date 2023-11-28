@@ -11,11 +11,10 @@ public partial class App : Application
         WebSocketClient = new WebSocketClient();
         MainPage = new Views.BottomTabPage();
 	}
-    protected override async void OnStart()
+    protected override void OnStart()
     {
         // Handle when your app starts
-        WebSocketClient webSocketClient = new WebSocketClient();
-        await webSocketClient.Connect();
+
     }
 
     protected override void OnSleep()
